@@ -3,9 +3,6 @@ plugins {
 }
 
 allprojects {
-    group 'com.gradle.project'
-    version '1.0-SNAPSHOT'
-
     repositories {
         mavenCentral()
     }
