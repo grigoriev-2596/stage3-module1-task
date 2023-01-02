@@ -5,6 +5,7 @@ import com.mjc.school.repository.model.NewsModel;
 import com.mjc.school.repository.model.data.NewsDataSource;
 
 import java.util.List;
+import java.util.Objects;
 
 public class NewsRepository implements Repository<NewsModel> {
     private final NewsDataSource dataSource = NewsDataSource.getInstance();
@@ -22,9 +23,9 @@ public class NewsRepository implements Repository<NewsModel> {
     }
 
     @Override
-    public NewsModel readById(long id) {
+    public NewsModel readById(Long id) {
         return dataSource.getNews().stream()
-                .filter(news -> news.getId() == id)
+                .filter(news -> Objects.equals(news.getId(), id))
                 .findAny()
                 .orElse(null);
     }
@@ -43,7 +44,7 @@ public class NewsRepository implements Repository<NewsModel> {
     }
 
     @Override
-    public Boolean delete(long id) {
+    public Boolean delete(Long id) {
         NewsModel toDelete = readById(id);
         if (toDelete == null) return false;
         dataSource.getNews().remove(toDelete);

@@ -7,9 +7,9 @@ public interface Repository<T> {
 
     List<T> readAll();
 
-    T readById(long id);
+    T readById(Long id);
 
     T update(T o);
 
-    Boolean delete(long id);
+    Boolean delete(Long id);
 }
