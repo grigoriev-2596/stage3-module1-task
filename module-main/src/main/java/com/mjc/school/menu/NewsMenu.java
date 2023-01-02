@@ -1,8 +1,8 @@
 package com.mjc.school.menu;
 
+import com.mjc.school.controller.implementation.NewsController;
 import com.mjc.school.service.exceptions.ErrorCode;
 import com.mjc.school.service.exceptions.MenuInputException;
-import com.mjc.school.controller.interfaces.Controller;
 import com.mjc.school.service.model.NewsDtoRequest;
 import com.mjc.school.service.model.NewsDtoResponse;
 
@@ -25,7 +25,7 @@ public class NewsMenu {
         }
     }
 
-    public void runMenu(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
+    public void runMenu(NewsController controller) {
         String input = "not defined";
         while (true) {
             printMenu();
@@ -56,7 +56,7 @@ public class NewsMenu {
         }
     }
 
-    private void createNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
+    private void createNews(NewsController controller) {
         try {
             String title, content;
             long authorId;
@@ -74,7 +74,7 @@ public class NewsMenu {
         }
     }
 
-    private void getAllNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
+    private void getAllNews(NewsController controller) {
         try {
             System.out.println("Operation: " + MenuConstant.GET_ALL_NEWS.getName());
             List<NewsDtoResponse> news = controller.readAll();
@@ -88,7 +88,7 @@ public class NewsMenu {
 
     }
 
-    private void getNewsById(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
+    private void getNewsById(NewsController controller) {
         try {
             System.out.println("Operation: " + MenuConstant.GET_NEWS_BY_ID.getName());
             long newsId;
@@ -101,7 +101,7 @@ public class NewsMenu {
         }
     }
 
-    private void updateNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
+    private void updateNews(NewsController controller) {
         try {
             String title, content;
             long authorId, newsId;
@@ -121,7 +121,7 @@ public class NewsMenu {
         }
     }
 
-    private void deleteNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
+    private void deleteNews(NewsController controller) {
         try {
             System.out.println("Operation: " + MenuConstant.DELETE_NEWS.getName());
             long newsId;
