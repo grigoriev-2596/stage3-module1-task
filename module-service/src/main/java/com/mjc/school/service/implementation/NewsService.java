@@ -33,13 +33,13 @@ public class NewsService implements Service<NewsDTORequest, NewsDTOResponse> {
 
     @Override
     public List<NewsDTOResponse> getAll() {
-        return mapper.listOfModelsToListOfDTOResponse(repository.getAll());
+        return mapper.listOfModelsToListOfDTOResponse(repository.readAll());
     }
 
     @Override
     public NewsDTOResponse getById(long id) {
         validator.validateNewsId(id);
-        NewsModel model = repository.getById(id);
+        NewsModel model = repository.readById(id);
         if (model == null) {
             throw new ServiceException(String.format(ErrorCode.NEWS_NOT_EXIST.toString(), id));
         }

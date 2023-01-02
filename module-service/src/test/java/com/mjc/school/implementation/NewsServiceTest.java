@@ -32,7 +32,7 @@ class NewsServiceTest {
     void create() {
         NewsDTORequest request = new NewsDTORequest(null, "Test title", "Test content", (long) 14);
         NewsDTOResponse serviceResponse = service.create(request);
-        List<NewsModel> news = repository.getAll();
+        List<NewsModel> news = repository.readAll();
 
         NewsModel modelFromRepo = news.get(news.size() - 1);
         NewsModel modelFromService = mapper.DTOResponseToModel(serviceResponse);
@@ -48,7 +48,7 @@ class NewsServiceTest {
     @Test
     void getAll() {
         List<NewsModel> serviceNews = mapper.listOfResponsesToListOfModel(service.getAll());
-        List<NewsModel> repoNews = repository.getAll();
+        List<NewsModel> repoNews = repository.readAll();
 
         assertEquals(repoNews, serviceNews);
     }
@@ -60,7 +60,7 @@ class NewsServiceTest {
         NewsDTORequest newsForUpdate = new NewsDTORequest(id, title, content, authorId);
 
         assertNotNull(service.update(newsForUpdate));
-        NewsModel updatedNews = repository.getById(id);
+        NewsModel updatedNews = repository.readById(id);
 
         assertEquals(title, updatedNews.getTitle());
         assertEquals(content, updatedNews.getContent());
@@ -73,7 +73,7 @@ class NewsServiceTest {
     void delete() {
         long id = 7;
         assertTrue(service.delete(id));
-        assertNull(repository.getById(id));
+        assertNull(repository.readById(id));
     }
 
 }

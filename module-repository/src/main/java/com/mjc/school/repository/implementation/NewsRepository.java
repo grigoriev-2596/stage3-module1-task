@@ -17,12 +17,12 @@ public class NewsRepository implements Repository<NewsModel> {
     }
 
     @Override
-    public List<NewsModel> getAll() {
+    public List<NewsModel> readAll() {
         return dataSource.getNews();
     }
 
     @Override
-    public NewsModel getById(long id) {
+    public NewsModel readById(long id) {
         return dataSource.getNews().stream()
                 .filter(news -> news.getId() == id)
                 .findAny()
@@ -31,7 +31,7 @@ public class NewsRepository implements Repository<NewsModel> {
 
     @Override
     public NewsModel update(NewsModel newsModel) {
-        NewsModel modelToUpdate = getById(newsModel.getId());
+        NewsModel modelToUpdate = readById(newsModel.getId());
         if (modelToUpdate == null) {
             return null;
         }
@@ -43,8 +43,8 @@ public class NewsRepository implements Repository<NewsModel> {
     }
 
     @Override
-    public boolean delete(long id) {
-        NewsModel toDelete = getById(id);
+    public Boolean delete(long id) {
+        NewsModel toDelete = readById(id);
         if (toDelete == null) return false;
         dataSource.getNews().remove(toDelete);
         return true;
