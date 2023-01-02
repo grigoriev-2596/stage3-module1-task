@@ -3,8 +3,8 @@ package com.mjc.school.menu;
 import com.mjc.school.service.exceptions.ErrorCode;
 import com.mjc.school.service.exceptions.MenuInputException;
 import com.mjc.school.controller.interfaces.Controller;
-import com.mjc.school.service.model.NewsDTORequest;
-import com.mjc.school.service.model.NewsDTOResponse;
+import com.mjc.school.service.model.NewsDtoRequest;
+import com.mjc.school.service.model.NewsDtoResponse;
 
 import java.util.List;
 import java.util.Scanner;
@@ -25,7 +25,7 @@ public class NewsMenu {
         }
     }
 
-    public void runMenu(Controller<NewsDTORequest, NewsDTOResponse> controller) {
+    public void runMenu(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         String input = "not defined";
         while (true) {
             printMenu();
@@ -56,7 +56,7 @@ public class NewsMenu {
         }
     }
 
-    private void createNews(Controller<NewsDTORequest, NewsDTOResponse> controller) {
+    private void createNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         try {
             String title, content;
             long authorId;
@@ -67,19 +67,19 @@ public class NewsMenu {
             content = scanner.nextLine();
             System.out.print("Enter author id:\n>>");
             authorId = readId();
-            NewsDTOResponse newsDTOResponse = controller.create(new NewsDTORequest(null, title, content, authorId));
+            NewsDtoResponse newsDTOResponse = controller.create(new NewsDtoRequest(null, title, content, authorId));
             System.out.println(newsDTOResponse);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void getAllNews(Controller<NewsDTORequest, NewsDTOResponse> controller) {
+    private void getAllNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         try {
             System.out.println("Operation: " + MenuConstant.GET_ALL_NEWS.getName());
-            List<NewsDTOResponse> news = controller.getAll();
+            List<NewsDtoResponse> news = controller.getAll();
 
-            for (NewsDTOResponse response : news) {
+            for (NewsDtoResponse response : news) {
                 System.out.println(response);
             }
         } catch (Exception e) {
@@ -88,20 +88,20 @@ public class NewsMenu {
 
     }
 
-    private void getNewsById(Controller<NewsDTORequest, NewsDTOResponse> controller) {
+    private void getNewsById(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         try {
             System.out.println("Operation: " + MenuConstant.GET_NEWS_BY_ID.getName());
             long newsId;
             System.out.print("Enter news id:\n>>");
             newsId = readId();
-            NewsDTOResponse response = controller.getById(newsId);
+            NewsDtoResponse response = controller.getById(newsId);
             System.out.println(response);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void updateNews(Controller<NewsDTORequest, NewsDTOResponse> controller) {
+    private void updateNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         try {
             String title, content;
             long authorId, newsId;
@@ -114,14 +114,14 @@ public class NewsMenu {
             content = scanner.nextLine();
             System.out.print("Enter author id:\n>>");
             authorId = readId();
-            NewsDTOResponse newsDTOResponse = controller.update(new NewsDTORequest(newsId, title, content, authorId));
+            NewsDtoResponse newsDTOResponse = controller.update(new NewsDtoRequest(newsId, title, content, authorId));
             System.out.println(newsDTOResponse);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
 
-    private void deleteNews(Controller<NewsDTORequest, NewsDTOResponse> controller) {
+    private void deleteNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         try {
             System.out.println("Operation: " + MenuConstant.DELETE_NEWS.getName());
             long newsId;

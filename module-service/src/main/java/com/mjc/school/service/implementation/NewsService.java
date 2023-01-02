@@ -2,8 +2,8 @@ package com.mjc.school.service.implementation;
 
 import com.mjc.school.service.exceptions.ErrorCode;
 import com.mjc.school.service.exceptions.ServiceException;
-import com.mjc.school.service.model.NewsDTORequest;
-import com.mjc.school.service.model.NewsDTOResponse;
+import com.mjc.school.service.model.NewsDtoRequest;
+import com.mjc.school.service.model.NewsDtoResponse;
 import com.mjc.school.service.utils.NewsMapper;
 import com.mjc.school.service.validation.NewsValidator;
 import com.mjc.school.repository.factory.RepositoryFactory;
@@ -15,13 +15,13 @@ import org.mapstruct.factory.Mappers;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class NewsService implements Service<NewsDTORequest, NewsDTOResponse> {
+public class NewsService implements Service<NewsDtoRequest, NewsDtoResponse> {
     private final Repository<NewsModel> repository = RepositoryFactory.getInstance().getNewsRepository();
     private final NewsMapper mapper = Mappers.getMapper(NewsMapper.class);
     private final NewsValidator validator = NewsValidator.getInstance();
 
     @Override
-    public NewsDTOResponse create(NewsDTORequest request) {
+    public NewsDtoResponse create(NewsDtoRequest request) {
         validator.validateNewsRequest(request);
         NewsModel model = mapper.DTORequestToModel(request);
         LocalDateTime creationDate = LocalDateTime.now();
@@ -32,12 +32,12 @@ public class NewsService implements Service<NewsDTORequest, NewsDTOResponse> {
     }
 
     @Override
-    public List<NewsDTOResponse> getAll() {
+    public List<NewsDtoResponse> readAll() {
         return mapper.listOfModelsToListOfDTOResponse(repository.readAll());
     }
 
     @Override
-    public NewsDTOResponse getById(long id) {
+    public NewsDtoResponse readById(Long id) {
         validator.validateNewsId(id);
         NewsModel model = repository.readById(id);
         if (model == null) {
@@ -47,7 +47,7 @@ public class NewsService implements Service<NewsDTORequest, NewsDTOResponse> {
     }
 
     @Override
-    public NewsDTOResponse update(NewsDTORequest request) {
+    public NewsDtoResponse update(NewsDtoRequest request) {
         validator.validateNewsRequest(request);
         validator.validateNewsId(request.getId());
         NewsModel requestModel = mapper.DTORequestToModel(request);
@@ -60,7 +60,7 @@ public class NewsService implements Service<NewsDTORequest, NewsDTOResponse> {
     }
 
     @Override
-    public boolean delete(long id) {
+    public boolean delete(Long id) {
         validator.validateNewsId(id);
         if (!repository.delete(id)) {
             throw new ServiceException(String.format(ErrorCode.NEWS_NOT_EXIST.toString(), id));

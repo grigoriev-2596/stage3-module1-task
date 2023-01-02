@@ -1,7 +1,7 @@
 package com.mjc.school.service.validation;
 
 import com.mjc.school.service.exceptions.ErrorCode;
-import com.mjc.school.service.model.NewsDTORequest;
+import com.mjc.school.service.model.NewsDtoRequest;
 import com.mjc.school.service.exceptions.ValidatorException;
 
 public class NewsValidator {
@@ -51,7 +51,7 @@ public class NewsValidator {
         }
     }
 
-    public void validateNewsRequest(NewsDTORequest request) {
+    public void validateNewsRequest(NewsDtoRequest request) {
         validateStringLength(request.getTitle(), "title", TITLE_MIN_LENGTH, TITLE_MAX_LENGTH);
         validateStringLength(request.getContent(), "content", CONTENT_MIN_LENGTH, CONTENT_MAX_LENGTH);
         validateAuthorId(request.getAuthorId());

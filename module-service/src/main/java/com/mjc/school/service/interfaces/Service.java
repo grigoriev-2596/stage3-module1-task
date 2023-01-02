@@ -5,11 +5,11 @@ import java.util.List;
 public interface Service<T1, T2> {
     T2 create(T1 o);
 
-    List<T2> getAll();
+    List<T2> readAll();
 
-    T2 getById(long id);
+    T2 readById(Long id);
 
     T2 update(T1 o);
 
-    boolean delete(long id);
+    boolean delete(Long id);
 }

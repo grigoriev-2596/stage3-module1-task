@@ -1,7 +1,7 @@
 package com.mjc.school.service.utils;
 
-import com.mjc.school.service.model.NewsDTORequest;
-import com.mjc.school.service.model.NewsDTOResponse;
+import com.mjc.school.service.model.NewsDtoRequest;
+import com.mjc.school.service.model.NewsDtoResponse;
 import com.mjc.school.repository.model.NewsModel;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
@@ -17,13 +17,13 @@ public interface NewsMapper {
             target = "lastUpdateDate",
             ignore = true
     )})
-    NewsModel DTORequestToModel(NewsDTORequest dto);
+    NewsModel DTORequestToModel(NewsDtoRequest dto);
 
-    NewsModel DTOResponseToModel(NewsDTOResponse dto);
+    NewsModel DTOResponseToModel(NewsDtoResponse dto);
 
-    NewsDTOResponse modelToDTOResponse(NewsModel model);
+    NewsDtoResponse modelToDTOResponse(NewsModel model);
 
-    List<NewsDTOResponse> listOfModelsToListOfDTOResponse(List<NewsModel> modelList);
+    List<NewsDtoResponse> listOfModelsToListOfDTOResponse(List<NewsModel> modelList);
 
-    List<NewsModel> listOfResponsesToListOfModel(List<NewsDTOResponse> responseList);
+    List<NewsModel> listOfResponsesToListOfModel(List<NewsDtoResponse> responseList);
 }

@@ -3,36 +3,36 @@ package com.mjc.school.controller.implementation;
 import com.mjc.school.service.factory.ServiceFactory;
 import com.mjc.school.controller.interfaces.Controller;
 import com.mjc.school.service.interfaces.Service;
-import com.mjc.school.service.model.NewsDTORequest;
-import com.mjc.school.service.model.NewsDTOResponse;
+import com.mjc.school.service.model.NewsDtoRequest;
+import com.mjc.school.service.model.NewsDtoResponse;
 
 import java.util.List;
 
-public class NewsController implements Controller<NewsDTORequest, NewsDTOResponse> {
-    Service<NewsDTORequest, NewsDTOResponse> service = ServiceFactory.getInstance().getNewsService();
+public class NewsController implements Controller<NewsDtoRequest, NewsDtoResponse> {
+    Service<NewsDtoRequest, NewsDtoResponse> newsService = ServiceFactory.getInstance().getNewsService();
 
     @Override
-    public NewsDTOResponse create(NewsDTORequest request) {
-        return service.create(request);
+    public NewsDtoResponse create(NewsDtoRequest request) {
+        return newsService.create(request);
     }
 
     @Override
-    public List<NewsDTOResponse> getAll() {
-        return service.getAll();
+    public List<NewsDtoResponse> getAll() {
+        return newsService.readAll();
     }
 
     @Override
-    public NewsDTOResponse getById(long id) {
-        return service.getById(id);
+    public NewsDtoResponse getById(long id) {
+        return newsService.readById(id);
     }
 
     @Override
-    public NewsDTOResponse update(NewsDTORequest request) {
-        return service.update(request);
+    public NewsDtoResponse update(NewsDtoRequest request) {
+        return newsService.update(request);
     }
 
     @Override
     public boolean delete(long id) {
-        return service.delete(id);
+        return newsService.delete(id);
     }
 }

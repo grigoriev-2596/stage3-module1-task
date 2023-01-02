@@ -4,8 +4,8 @@ import com.mjc.school.repository.factory.RepositoryFactory;
 import com.mjc.school.service.factory.ServiceFactory;
 import com.mjc.school.repository.interfaces.Repository;
 import com.mjc.school.service.interfaces.Service;
-import com.mjc.school.service.model.NewsDTORequest;
-import com.mjc.school.service.model.NewsDTOResponse;
+import com.mjc.school.service.model.NewsDtoRequest;
+import com.mjc.school.service.model.NewsDtoResponse;
 import com.mjc.school.repository.model.NewsModel;
 import com.mjc.school.service.utils.NewsMapper;
 import org.junit.jupiter.api.Test;
@@ -17,25 +17,25 @@ import static org.junit.jupiter.api.Assertions.*;
 
 
 class NewsServiceTest {
-    private final Service<NewsDTORequest, NewsDTOResponse> service = ServiceFactory.getInstance().getNewsService();
-    private final Repository<NewsModel> repository = RepositoryFactory.getInstance().getNewsRepository();
-    private final NewsMapper mapper = Mappers.getMapper(NewsMapper.class);
+    private final Service<NewsDtoRequest, NewsDtoResponse> newsService = ServiceFactory.getInstance().getNewsService();
+    private final Repository<NewsModel> newsRepository = RepositoryFactory.getInstance().getNewsRepository();
+    private final NewsMapper newsMapper = Mappers.getMapper(NewsMapper.class);
 
     @Test
     void getById() {
         long id = 15;
-        NewsDTOResponse serviceResponse = service.getById(id);
+        NewsDtoResponse serviceResponse = newsService.readById(id);
         assertEquals(id, serviceResponse.getId());
     }
 
     @Test
     void create() {
-        NewsDTORequest request = new NewsDTORequest(null, "Test title", "Test content", (long) 14);
-        NewsDTOResponse serviceResponse = service.create(request);
-        List<NewsModel> news = repository.readAll();
+        NewsDtoRequest request = new NewsDtoRequest(null, "Test title", "Test content", (long) 14);
+        NewsDtoResponse serviceResponse = newsService.create(request);
+        List<NewsModel> news = newsRepository.readAll();
 
         NewsModel modelFromRepo = news.get(news.size() - 1);
-        NewsModel modelFromService = mapper.DTOResponseToModel(serviceResponse);
+        NewsModel modelFromService = newsMapper.DTOResponseToModel(serviceResponse);
 
         assertNotNull(serviceResponse.getLastUpdateDate());
         assertNotNull(serviceResponse.getCreationDate());
@@ -47,8 +47,8 @@ class NewsServiceTest {
 
     @Test
     void getAll() {
-        List<NewsModel> serviceNews = mapper.listOfResponsesToListOfModel(service.getAll());
-        List<NewsModel> repoNews = repository.readAll();
+        List<NewsModel> serviceNews = newsMapper.listOfResponsesToListOfModel(newsService.readAll());
+        List<NewsModel> repoNews = newsRepository.readAll();
 
         assertEquals(repoNews, serviceNews);
     }
@@ -57,10 +57,10 @@ class NewsServiceTest {
     void update() {
         long id = 5, authorId = 7;
         String title = "Updated title", content = "Updated content";
-        NewsDTORequest newsForUpdate = new NewsDTORequest(id, title, content, authorId);
+        NewsDtoRequest newsForUpdate = new NewsDtoRequest(id, title, content, authorId);
 
-        assertNotNull(service.update(newsForUpdate));
-        NewsModel updatedNews = repository.readById(id);
+        assertNotNull(newsService.update(newsForUpdate));
+        NewsModel updatedNews = newsRepository.readById(id);
 
         assertEquals(title, updatedNews.getTitle());
         assertEquals(content, updatedNews.getContent());
@@ -72,8 +72,8 @@ class NewsServiceTest {
     @Test
     void delete() {
         long id = 7;
-        assertTrue(service.delete(id));
-        assertNull(repository.readById(id));
+        assertTrue(newsService.delete(id));
+        assertNull(newsRepository.readById(id));
     }
 
 }

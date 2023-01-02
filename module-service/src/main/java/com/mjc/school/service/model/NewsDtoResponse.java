@@ -2,7 +2,7 @@ package com.mjc.school.service.model;
 
 import java.time.LocalDateTime;
 
-public class NewsDTOResponse {
+public class NewsDtoResponse {
     private final Long id;
     private final String title;
     private final String content;
@@ -10,7 +10,7 @@ public class NewsDTOResponse {
     private final LocalDateTime lastUpdateDate;
     private final Long authorId;
 
-    public NewsDTOResponse(Long id, String title, String content, LocalDateTime creationDate, LocalDateTime lastUpdateDate, Long authorId) {
+    public NewsDtoResponse(Long id, String title, String content, LocalDateTime creationDate, LocalDateTime lastUpdateDate, Long authorId) {
         this.id = id;
         this.title = title;
         this.content = content;
