@@ -11,5 +11,5 @@ public interface Service<T1, T2> {
 
     T2 update(T1 o);
 
-    boolean delete(Long id);
+    Boolean delete(Long id);
 }

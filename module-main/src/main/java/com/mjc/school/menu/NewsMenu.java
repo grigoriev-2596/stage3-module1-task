@@ -77,7 +77,7 @@ public class NewsMenu {
     private void getAllNews(Controller<NewsDtoRequest, NewsDtoResponse> controller) {
         try {
             System.out.println("Operation: " + MenuConstant.GET_ALL_NEWS.getName());
-            List<NewsDtoResponse> news = controller.getAll();
+            List<NewsDtoResponse> news = controller.readAll();
 
             for (NewsDtoResponse response : news) {
                 System.out.println(response);
@@ -94,7 +94,7 @@ public class NewsMenu {
             long newsId;
             System.out.print("Enter news id:\n>>");
             newsId = readId();
-            NewsDtoResponse response = controller.getById(newsId);
+            NewsDtoResponse response = controller.readById(newsId);
             System.out.println(response);
         } catch (Exception e) {
             System.out.println(e.getMessage());

@@ -16,53 +16,53 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class NewsService implements Service<NewsDtoRequest, NewsDtoResponse> {
-    private final Repository<NewsModel> repository = RepositoryFactory.getInstance().getNewsRepository();
-    private final NewsMapper mapper = Mappers.getMapper(NewsMapper.class);
-    private final NewsValidator validator = NewsValidator.getInstance();
+    private final Repository<NewsModel> newsRepository = RepositoryFactory.getInstance().getNewsRepository();
+    private final NewsMapper newsMapper = Mappers.getMapper(NewsMapper.class);
+    private final NewsValidator newsValidator = NewsValidator.getInstance();
 
     @Override
     public NewsDtoResponse create(NewsDtoRequest request) {
-        validator.validateNewsRequest(request);
-        NewsModel model = mapper.DTORequestToModel(request);
+        newsValidator.validateNewsRequest(request);
+        NewsModel model = newsMapper.DTORequestToModel(request);
         LocalDateTime creationDate = LocalDateTime.now();
         model.setCreationDate(creationDate);
         model.setLastUpdateDate(creationDate);
-        model = repository.create(model);
-        return mapper.modelToDTOResponse(model);
+        model = newsRepository.create(model);
+        return newsMapper.modelToDTOResponse(model);
     }
 
     @Override
     public List<NewsDtoResponse> readAll() {
-        return mapper.listOfModelsToListOfDTOResponse(repository.readAll());
+        return newsMapper.listOfModelsToListOfDTOResponse(newsRepository.readAll());
     }
 
     @Override
     public NewsDtoResponse readById(Long id) {
-        validator.validateNewsId(id);
-        NewsModel model = repository.readById(id);
+        newsValidator.validateNewsId(id);
+        NewsModel model = newsRepository.readById(id);
         if (model == null) {
             throw new ServiceException(String.format(ErrorCode.NEWS_NOT_EXIST.toString(), id));
         }
-        return mapper.modelToDTOResponse(model);
+        return newsMapper.modelToDTOResponse(model);
     }
 
     @Override
     public NewsDtoResponse update(NewsDtoRequest request) {
-        validator.validateNewsRequest(request);
-        validator.validateNewsId(request.getId());
-        NewsModel requestModel = mapper.DTORequestToModel(request);
+        newsValidator.validateNewsRequest(request);
+        newsValidator.validateNewsId(request.getId());
+        NewsModel requestModel = newsMapper.DTORequestToModel(request);
         requestModel.setLastUpdateDate(LocalDateTime.now());
-        NewsModel updateModel = repository.update(requestModel);
+        NewsModel updateModel = newsRepository.update(requestModel);
         if (updateModel == null) {
             throw new ServiceException(String.format(ErrorCode.NEWS_NOT_EXIST.toString(), request.getId()));
         }
-        return mapper.modelToDTOResponse(updateModel);
+        return newsMapper.modelToDTOResponse(updateModel);
     }
 
     @Override
-    public boolean delete(Long id) {
-        validator.validateNewsId(id);
-        if (!repository.delete(id)) {
+    public Boolean delete(Long id) {
+        newsValidator.validateNewsId(id);
+        if (!newsRepository.delete(id)) {
             throw new ServiceException(String.format(ErrorCode.NEWS_NOT_EXIST.toString(), id));
         }
         return true;
