@@ -2,20 +2,25 @@ plugins {
     id 'java'
 }
 
-wrapper {
-    gradleVersion = gradlewVersion
-}
-
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'jacoco'
-    group = 'com.mjc.school'
-    sourceCompatibility = javaVersion
-    targetCompatibility = javaVersion
+allprojects {
+    group 'com.gradle.project'
+    version '1.0-SNAPSHOT'
 
     repositories {
         mavenCentral()
     }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'idea'
+    apply plugin: 'jacoco'
+    group = 'com.mjc.school'
+
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
+
+
 
     dependencies {
         testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
@@ -27,15 +32,25 @@ subprojects {
     }
 }
 
-task repack(type: Jar, dependsOn: ':module-main:build') {
-    if (findProject(':module-main') != null) {
-        entryCompression = ZipEntryCompression.STORED
-        def buildJar = zipTree("${project(':module-main').buildDir}/libs/module-main-all.jar")
-        from(buildJar) { into('/') }
-        manifest {
-            attributes(
-                    'Main-Class': 'com.mjc.school.Main'
-            )
-        }
+configurations {
+    childJars
+}
+
+dependencies {
+    subprojects.each {
+        childJars project(it.path)
     }
 }
+
+jar {
+    dependsOn configurations.childJars
+    from { configurations.childJars.collect { zipTree(it) } }
+    manifest {
+        attributes(
+                'Main-Class': 'com.mjc.school.Main'
+        )
+    }
+}
+
+
+

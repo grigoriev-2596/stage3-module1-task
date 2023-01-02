@@ -1,0 +1,16 @@
+plugins {
+    id 'application'
+}
+
+
+dependencies {
+    implementation project(":module-service")
+    implementation project(":module-web")
+}
+
+mainClassName = 'com.mjc.school.Main'
+
+run {
+    standardInput = System.in
+}
+
