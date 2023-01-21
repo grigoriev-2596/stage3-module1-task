@@ -3,8 +3,8 @@ package com.mjc.school.menu;
 import com.mjc.school.controller.implementation.NewsController;
 import com.mjc.school.service.exceptions.ErrorCode;
 import com.mjc.school.service.exceptions.MenuInputException;
-import com.mjc.school.service.model.NewsDtoRequest;
-import com.mjc.school.service.model.NewsDtoResponse;
+import com.mjc.school.service.dto.NewsDtoRequest;
+import com.mjc.school.service.dto.NewsDtoResponse;
 
 import java.util.List;
 import java.util.Scanner;

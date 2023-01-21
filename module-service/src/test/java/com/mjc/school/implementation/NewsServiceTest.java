@@ -2,12 +2,12 @@ package com.mjc.school.implementation;
 
 import com.mjc.school.repository.factory.RepositoryFactory;
 import com.mjc.school.service.factory.ServiceFactory;
-import com.mjc.school.repository.interfaces.Repository;
-import com.mjc.school.service.interfaces.Service;
-import com.mjc.school.service.model.NewsDtoRequest;
-import com.mjc.school.service.model.NewsDtoResponse;
+import com.mjc.school.repository.Repository;
+import com.mjc.school.service.Service;
+import com.mjc.school.service.dto.NewsDtoRequest;
+import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.repository.model.NewsModel;
-import com.mjc.school.service.utils.NewsMapper;
+import com.mjc.school.service.NewsMapper;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
@@ -39,10 +39,8 @@ class NewsServiceTest {
 
         assertNotNull(serviceResponse.getLastUpdateDate());
         assertNotNull(serviceResponse.getCreationDate());
-        assertNotNull(serviceResponse.getCreationDate());
 
         assertEquals(modelFromService, modelFromRepo);
-
     }
 
     @Test

@@ -1,7 +1,7 @@
 package com.mjc.school.service.validation;
 
 import com.mjc.school.service.exceptions.ErrorCode;
-import com.mjc.school.service.model.NewsDtoRequest;
+import com.mjc.school.service.dto.NewsDtoRequest;
 import com.mjc.school.service.exceptions.ValidatorException;
 
 public class NewsValidator {

@@ -1,4 +1,4 @@
-package com.mjc.school.service.model;
+package com.mjc.school.service.dto;
 
 public class NewsDtoRequest {
     private final Long id;

@@ -1,6 +1,6 @@
 package com.mjc.school.repository.model.data;
 
-import com.mjc.school.repository.utils.Utils;
+import com.mjc.school.repository.utils.LinesReader;
 import com.mjc.school.repository.model.AuthorModel;
 import com.mjc.school.repository.model.NewsModel;
 
@@ -50,18 +50,18 @@ public class NewsDataSource {
     }
 
     private void readAuthors() {
-        List<String> authorsLines = Utils.readLines(AUTHORS_FILE_NAME, AMOUNT_OF_LINES_TO_READ);
+        List<String> authorsLines = LinesReader.readLines(AUTHORS_FILE_NAME, AMOUNT_OF_LINES_TO_READ);
         for (int i = 0; i < AMOUNT_OF_LINES_TO_READ; i++) {
             authors.add(new AuthorModel((long)i + 1, authorsLines.get(i)));
         }
     }
 
     private void createNews(List<AuthorModel> authors) {
-        List<String> titles = Utils.readLines(NEWS_TITLE_FILE_NAME, AMOUNT_OF_LINES_TO_READ);
-        List<String> contents = Utils.readLines(NEWS_CONTENT_FILE_NAME, AMOUNT_OF_LINES_TO_READ);
+        List<String> titles = LinesReader.readLines(NEWS_TITLE_FILE_NAME, AMOUNT_OF_LINES_TO_READ);
+        List<String> contents = LinesReader.readLines(NEWS_CONTENT_FILE_NAME, AMOUNT_OF_LINES_TO_READ);
         LocalDateTime randomDate;
         for (int i = 0; i < AMOUNT_OF_LINES_TO_READ; i++) {
-            randomDate = Utils.getRandomDate();
+            randomDate = LinesReader.getRandomDate();
             news.add(new NewsModel(lastNewsId, titles.get(i), contents.get(i),
                     randomDate, randomDate, authors.get(i).getId()));
             lastNewsId++;

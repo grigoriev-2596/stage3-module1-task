@@ -1,7 +1,7 @@
-package com.mjc.school.service.utils;
+package com.mjc.school.service;
 
-import com.mjc.school.service.model.NewsDtoRequest;
-import com.mjc.school.service.model.NewsDtoResponse;
+import com.mjc.school.service.dto.NewsDtoRequest;
+import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.repository.model.NewsModel;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;

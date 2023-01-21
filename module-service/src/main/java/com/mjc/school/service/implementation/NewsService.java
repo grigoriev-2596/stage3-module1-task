@@ -1,24 +1,30 @@
 package com.mjc.school.service.implementation;
 
+import com.mjc.school.repository.Repository;
+import com.mjc.school.repository.factory.RepositoryFactory;
+import com.mjc.school.repository.model.NewsModel;
+import com.mjc.school.service.NewsMapper;
+import com.mjc.school.service.Service;
+import com.mjc.school.service.dto.NewsDtoRequest;
+import com.mjc.school.service.dto.NewsDtoResponse;
 import com.mjc.school.service.exceptions.ErrorCode;
 import com.mjc.school.service.exceptions.ServiceException;
-import com.mjc.school.service.model.NewsDtoRequest;
-import com.mjc.school.service.model.NewsDtoResponse;
-import com.mjc.school.service.utils.NewsMapper;
 import com.mjc.school.service.validation.NewsValidator;
-import com.mjc.school.repository.factory.RepositoryFactory;
-import com.mjc.school.repository.interfaces.Repository;
-import com.mjc.school.service.interfaces.Service;
-import com.mjc.school.repository.model.NewsModel;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class NewsService implements Service<NewsDtoRequest, NewsDtoResponse> {
-    private final Repository<NewsModel> newsRepository = RepositoryFactory.getInstance().getNewsRepository();
-    private final NewsMapper newsMapper = Mappers.getMapper(NewsMapper.class);
-    private final NewsValidator newsValidator = NewsValidator.getInstance();
+    private final Repository<NewsModel> newsRepository;
+    private final NewsMapper newsMapper;
+    private final NewsValidator newsValidator;
+
+    public NewsService() {
+        newsRepository = RepositoryFactory.getInstance().getNewsRepository();
+        newsMapper = Mappers.getMapper(NewsMapper.class);
+        newsValidator = NewsValidator.getInstance();
+    }
 
     @Override
     public NewsDtoResponse create(NewsDtoRequest request) {
